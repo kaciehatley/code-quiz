@@ -17,45 +17,6 @@ correctSound.volume = 0.5;
 var wrongSound = document.querySelector("#wrongAudio");
 wrongSound.volume = 0.5;
 
-var questionCounter = 0;
-
-//Start button sets off timer
-
-var timeLeft = 75;
-
-function countdown() {
-    if (timeLeft == -1) {
-        clearTimeout(timerId);
-    } else {
-        timerEl.innerHTML = timeLeft + ' seconds remaining';
-        timeLeft--;
-    }
-}
-
-startButton.addEventListener("click", function() {
-    landingPageContent.setAttribute("style", "display: none;");
-    timerEl.textContent = timeLeft;
-    var timerId = setInterval(countdown, 1000);
-    
-    questionFunction();
-    console.log(questionCounter);
-});
-
-
-//New code
-
-var questionHead = document.createElement("h2");
-// questionHead.setAttribute("style", "width:50%; margin: auto; text-align:left;");
-var ans1 = document.createElement("button");
-ans1.setAttribute("class", "ansButton btn");
-var ans2 = document.createElement("button");
-ans2.setAttribute("class", "ansButton btn");
-var ans3 = document.createElement("button");
-ans3.setAttribute("class", "ansButton btn");
-var ans4 = document.createElement("button");
-ans4.setAttribute("class", "ansButton btn");
-
-
 var questions = [
     {
     title: "Commonly used data types DO NOT include:",
@@ -84,6 +45,50 @@ var questions = [
     },
 ];
 
+var questionCounter = 0;
+
+//Start button sets off timer
+
+var timeLeft = questions.length * 15;
+
+
+startButton.addEventListener("click", function() {
+    landingPageContent.setAttribute("style", "display: none;");
+    var timerId = setInterval(countdown, 1000);
+
+    function countdown() {
+        if (timeLeft == -1) {
+            clearTimeout(timerId);
+        } else {
+            timerEl.innerHTML = timeLeft + ' seconds remaining';
+            timeLeft--;
+
+            if (questionCounter === 5) {
+                clearTimeout(timerId);
+            }
+        }
+    }
+    
+    questionFunction();
+    console.log(questionCounter);
+});
+
+
+//New code
+
+var questionHead = document.createElement("h2");
+// questionHead.setAttribute("style", "width:50%; margin: auto; text-align:left;");
+var ans1 = document.createElement("button");
+ans1.setAttribute("class", "ansButton btn");
+var ans2 = document.createElement("button");
+ans2.setAttribute("class", "ansButton btn");
+var ans3 = document.createElement("button");
+ans3.setAttribute("class", "ansButton btn");
+var ans4 = document.createElement("button");
+ans4.setAttribute("class", "ansButton btn");
+
+
+
 var rightOrWrong = document.createElement("p");
 rightOrWrong.setAttribute("style", "color: #A0A0A0; font-style: italic; padding-top: 20px;")
 
@@ -100,7 +105,6 @@ function questionFunction() {
 
     if (questionCounter === 5) {
         console.log("All done!");
-        clearTimeout(timerId);
         allDone();
     } else {
         questionHead.innerHTML=questions[questionCounter].title;
@@ -148,5 +152,6 @@ questionsDiv.addEventListener("click", function(event) {
 function allDone() {
     initialsDiv.setAttribute("style", "display: inline;");
     var finalScoreLine = initialsDiv.querySelector("#finalScore");
+    finalScoreLine.innerHTML="Your final score is " + timeLeft;
 
 }

@@ -61,6 +61,18 @@ h2 {
     display: block;
 }
 
+.submit {
+    background-color: purple;
+    color: white;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+#input {
+    width: 150px;
+    margin: auto;
+}
+
 #initials {
     display: none;    
     width:50%;
