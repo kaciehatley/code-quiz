@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Javascript Coding Quiz</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <audio id="correctAudio" type="audio/wav"><source src="assets/411088__inspectorj__bell-candle-damper-a-h4n.wav"></audio>
+    <audio id="wrongAudio" type="audio/mp3"><source src="assets/483598__raclure__wrong.mp3"></audio>
+    <body>
+        <div class=top-section>
+            <p id="highscore">View Highscores</p>
+            <p id="timer">Time: 0</p>
+        </div>
+        <!-- This is where all questions/answers will be stored -->
+        <div id=questions>
+            <ul>
+            </ul>
+        </div>
+        <!-- This will store the page giving the final score and input for users to put initials -->
+        <div id=initials>
+            <h2>All Done!</h2>
+            <p id="finalScore"></p>
+            <div id="initialsLine">
+                <p>Enter initials:</p>
+                <input>
+            </div>
+        </div>
+        <!-- This will display all high scores -->
+        <div id=highScoreDiv>
+        </div>
+        <div id="landingPage">
+            <h1>Coding Quiz Challenge</h1>
+            <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+            <button type="button" class="btn" id="start">Start Quiz</button>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="script.js"></script>
+    </body>
+</html>
