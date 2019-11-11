@@ -19,6 +19,7 @@ wrongSound.volume = 0.5;
 var submitButton = initialsDiv.querySelector(".submit");
 var initialsInput = initialsDiv.querySelector(".inputSection");
 var scoreButton = document.querySelector(".scoreButton");
+var homeButton = document.querySelector(".home");
 
 var scores = [];
 
@@ -97,6 +98,9 @@ var ans3 = document.createElement("button");
 ans3.setAttribute("class", "ansButton btn");
 var ans4 = document.createElement("button");
 ans4.setAttribute("class", "ansButton btn");
+var toHome = document.createElement("button");
+toHome.setAttribute("class", "btn");
+toHome.setAttribute("style", "display: block; margin: auto;")
 
 
 
@@ -130,8 +134,14 @@ function questionFunction() {
         questionsDiv.appendChild(ans3);
         ans4.innerHTML=questions[questionCounter].choices[3];
         questionsDiv.appendChild(ans4);
-        
+        toHome.innerHTML="Back To Home Page";
+        toHome.setAttribute("style", "color: white; margin-top: 50px; background: #575757; margin-bottom: 200px;")
+        homeButton.appendChild(toHome);       
     }
+
+    toHome.addEventListener("click", function() {
+        window.location.reload();
+    })
 }
 
 questionsDiv.addEventListener("click", function(event) {
@@ -167,6 +177,7 @@ function storeScores() {
 }
 
 function renderScores() {
+    toHome.setAttribute("style", "display: none;");
     initialsDiv.setAttribute("style", "display: none;");
     questionsDiv.setAttribute("style", "display: none;");
     landingPageContent.setAttribute("style", "display: none;");
@@ -196,8 +207,7 @@ function renderScores() {
     highscoreDiv.appendChild(clearButton);
 
     gobackButton.addEventListener("click", function() {
-        highscoreDiv.innerHTML = "";
-        landingPageContent.setAttribute("style", "display: block;");
+        window.location.reload();
     });
 
     clearButton.addEventListener("click", function() {
@@ -209,6 +219,7 @@ function renderScores() {
 }
 
 function allDone() {
+    toHome.setAttribute("style", "display: none;");
     questionsDiv.setAttribute("style", "display: none;");
     initialsDiv.setAttribute("style", "display: inline;");
     var finalScoreLine = initialsDiv.querySelector("#finalScore");
@@ -226,6 +237,22 @@ function allDone() {
         scores.push(inputText + "-" + timeLeft);
         storeScores();
         renderScores();
+    })
+
+    document.addEventListener("keyup", function(e) {
+        if (e.keyCode === 13) {
+            event.preventDefault();
+
+            var inputText = initialsInput.value.trim();
+            
+            if (inputText === "") {
+                return;
+            }
+    
+            scores.push(inputText + "-" + timeLeft);
+            storeScores();
+            renderScores();
+        }
     })
 
 }
