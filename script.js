@@ -4,8 +4,8 @@ var timerEl = document.querySelector("#timer");
 var landingPageContent = document.querySelector("#landingPage");
 var startButton = document.querySelector("#start");
 // Parent Element for questions
-var questionsDiv = document.querySelector("#questions");
-questionsDiv.setAttribute("style", "width:50%; margin: auto; align-content:left;");
+var questionsDiv = document.querySelector(".questions");
+questionsDiv.setAttribute("style", "display: none;");
 // Parent Element for initials
 var initialsDiv = document.querySelector("#initials");
 // Parent Element for high score page
@@ -16,6 +16,17 @@ var correctSound = document.querySelector("#correctAudio");
 correctSound.volume = 0.5;
 var wrongSound = document.querySelector("#wrongAudio");
 wrongSound.volume = 0.5;
+var submitButton = initialsDiv.querySelector(".submit");
+var initialsInput = initialsDiv.querySelector(".inputSection");
+var scoreButton = document.querySelector(".scoreButton");
+
+var scores = [];
+
+scoreButton.addEventListener("click", function() {
+    renderScores();
+});
+
+init();
 
 var questions = [
     {
@@ -77,7 +88,7 @@ startButton.addEventListener("click", function() {
 //New code
 
 var questionHead = document.createElement("h2");
-// questionHead.setAttribute("style", "width:50%; margin: auto; text-align:left;");
+questionHead.setAttribute("id", "whiteBackground");
 var ans1 = document.createElement("button");
 ans1.setAttribute("class", "ansButton btn");
 var ans2 = document.createElement("button");
@@ -90,18 +101,20 @@ ans4.setAttribute("class", "ansButton btn");
 
 
 var rightOrWrong = document.createElement("p");
-rightOrWrong.setAttribute("style", "color: #A0A0A0; font-style: italic; padding-top: 20px;")
+rightOrWrong.setAttribute("style", "color: #575757; font-style: italic; padding-top: 15px; background: white;")
 
 function pTagDelay() {
     setTimeout(function () {
         rightOrWrong.innerHTML="";
-    }, 3000);
+    }, 1000);
 }
 
 var currentQuestion = questions[questionCounter].title;
 var currentChoices = questions[questionCounter].choices;
 
 function questionFunction() {
+
+    questionsDiv.setAttribute("style", "display: block;");
 
     if (questionCounter === 5) {
         console.log("All done!");
@@ -149,9 +162,80 @@ questionsDiv.addEventListener("click", function(event) {
     }
 })
 
+function storeScores() {
+    localStorage.setItem("highscores", JSON.stringify(scores));
+}
+
+function renderScores() {
+    initialsDiv.setAttribute("style", "display: none;");
+    questionsDiv.setAttribute("style", "display: none;");
+    landingPageContent.setAttribute("style", "display: none;");
+    highscoreDiv.setAttribute("style", "display: none;");
+    highscoreDiv.setAttribute("style", "display: inline;");
+    timeLeft = 0;
+
+    for (var i=0; i < scores.length; i++) {
+        console.log(scores[i]);
+        var scoreDiv = document.createElement("div");
+        scoreDiv.setAttribute("style", "background-color: white; border: 3px solid #CB5858; width: 100px; margin: 20px auto; border-radius: 25px; font-size: 22px;");
+        highscoreDiv.appendChild(scoreDiv);
+        var scoreDisplay = document.createElement("p");
+        scoreDisplay.innerHTML = scores[i];
+        scoreDisplay.setAttribute("style", "color: #CB5858;")
+        scoreDiv.appendChild(scoreDisplay);
+    }
+
+    var gobackButton = document.createElement("button");
+    gobackButton.setAttribute("id", "scorePageButtons");
+    gobackButton.innerHTML = "Go Back";
+    highscoreDiv.appendChild(gobackButton);
+
+    var clearButton = document.createElement("button");
+    clearButton.setAttribute("id", "scorePageButtons");
+    clearButton.innerHTML = "Clear Highscores";
+    highscoreDiv.appendChild(clearButton);
+
+    gobackButton.addEventListener("click", function() {
+        highscoreDiv.innerHTML = "";
+        landingPageContent.setAttribute("style", "display: block;");
+    });
+
+    clearButton.addEventListener("click", function() {
+        window.localStorage.clear();
+        scores = [];
+        highscoreDiv.innerHTML= "";
+        renderScores();
+    })
+}
+
 function allDone() {
+    questionsDiv.setAttribute("style", "display: none;");
     initialsDiv.setAttribute("style", "display: inline;");
     var finalScoreLine = initialsDiv.querySelector("#finalScore");
-    finalScoreLine.innerHTML="Your final score is " + timeLeft;
+    finalScoreLine.innerHTML="Your final score is " + timeLeft + "!";
+
+    submitButton.addEventListener("click", function() {
+        event.preventDefault();
+
+        var inputText = initialsInput.value.trim();
+        
+        if (inputText === "") {
+            return;
+        }
+
+        scores.push(inputText + "-" + timeLeft);
+        storeScores();
+        renderScores();
+    })
 
 }
+
+function init() {
+
+    var storedScores = JSON.parse(localStorage.getItem("highscores"));
+    
+    if (storedScores !== null) {
+        scores = storedScores;
+    }
+
+  }

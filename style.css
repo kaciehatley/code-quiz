@@ -1,16 +1,11 @@
 * {
     font-family: sans-serif;
+    background-image: url("assets/notebook.png");
 }
 
 .top-section {
     width: 100%;
     display: inline-block;
-}
-
-#highscore {
-    float: left;
-    margin-left: 10px;
-    color: purple;
 }
 
 #timer {
@@ -39,7 +34,7 @@ h2 {
 }
 
 #start {
-    background-color: purple;
+    background: #CB5858;
     color: white;
     font-size: 18px;
     margin-top: 20px;
@@ -54,7 +49,7 @@ h2 {
 }
 
 .ansButton {
-    background-color: purple;
+    background: #CB5858;
     color: white;
     font-size: 18px;
     margin: 10px 0;
@@ -62,13 +57,21 @@ h2 {
 }
 
 .submit {
-    background-color: purple;
+    background: #CB5858;
     color: white;
     font-size: 18px;
     margin-top: 20px;
 }
 
-#input {
+.scoreButton {
+    background: #CB5858;
+    color: white;
+    font-size: 18px;
+    margin-top: 5px;
+    margin-left: 10px; 
+}
+
+.inputSection {
     width: 150px;
     margin: auto;
 }
@@ -80,5 +83,44 @@ h2 {
     align-content: center;
     text-align: center;
     margin-top: 10%;
+}
+
+#highScoreDiv {
+    display: none;
+    width: 50%;
+    margin: auto;
+    align-content: center;
+    text-align: center;
+    margin-top: 10%;
+}
+
+#scorePageButtons {
+    background: #CB5858;
+    color: white;
+    font-size: 18px;
+    display: block;
+    margin: 30px auto;
+    border-radius: 15px;
+    padding: 15px;
+}
+
+#landingPage {
+    border: 3px solid #575757;
+    border-radius: 25px;
+    padding: 20px;
+    background: white;
+}
+
+#whiteBackground {
+    background: white;
+}
+
+.questions {
+    padding: 25px;
+    border: 3px solid #575757;
+    border-radius: 25px;
+    width: 50%;
+    margin: auto;
+    align-content: left;
 }
 

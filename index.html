@@ -9,13 +9,8 @@
     <audio id="wrongAudio" type="audio/mp3"><source src="assets/483598__raclure__wrong.mp3"></audio>
     <body>
         <div class=top-section>
-            <p id="highscore">View Highscores</p>
+            <button class="btn scoreButton">View Highscores</button>
             <p id="timer">Time: 0</p>
-        </div>
-        <!-- This is where all questions/answers will be stored -->
-        <div id=questions>
-            <ul>
-            </ul>
         </div>
         <!-- This will store the page giving the final score and input for users to put initials -->
         <div id=initials>
@@ -23,16 +18,22 @@
             <p id="finalScore"></p>
             <div id="initialsLine">
                 <p>Enter initials:</p>
-                <input type="text" name="Initials Here" class="form-control" id="input">
+                <input type="text" name="Initials Here" class="form-control inputSection" id="whiteBackground">
                 <button type="button" class="btn submit">Submit</button>
             </div>
         </div>
+        <!-- This is where all questions/answers will be stored -->
+        <div class="questions" id="whiteBackground">
+            <ul>
+            </ul>
+        </div>
         <!-- This will display all high scores -->
         <div id=highScoreDiv>
+            <h2>High Scores</h2>
         </div>
-        <div id="landingPage">
-            <h1>Coding Quiz Challenge</h1>
-            <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+        <div class="landingPage" id="landingPage">
+            <h1 id="whiteBackground">Coding Quiz Challenge</h1>
+            <p id="whiteBackground">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
             <button type="button" class="btn" id="start">Start Quiz</button>
         </div>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
