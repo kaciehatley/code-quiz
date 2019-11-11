@@ -12,33 +12,43 @@ var initialsDiv = document.querySelector("#initials");
 var highscoreDiv = document.querySelector("#highScoreDiv");
 // Parent Element for ul
 var buttonParent = document.querySelector("ul");
+// Audio for right and wrong answers
 var correctSound = document.querySelector("#correctAudio");
 correctSound.volume = 0.5;
 var wrongSound = document.querySelector("#wrongAudio");
 wrongSound.volume = 0.5;
+// Input initials input and submit button
 var submitButton = initialsDiv.querySelector(".submit");
 var initialsInput = initialsDiv.querySelector(".inputSection");
+// Buttons on high score page
 var scoreButton = document.querySelector(".scoreButton");
 var homeButton = document.querySelector(".home");
 
+// Variable for current question
+var questionCounter = 0;
+// Empty array for high scores
 var scores = [];
 
+// When page loads, it gets scores in local storage and adds to the "scores" array
+init();
+
+function init() {
+    var storedScores = JSON.parse(localStorage.getItem("highscores"));
+    
+    if (storedScores !== null) {
+        scores = storedScores;
+    }
+  }
+
+// High score button in top left corner that renders high scores
 scoreButton.addEventListener("click", function() {
     highscoreDiv.innerHTML="";
     renderScores();
 });
 
-init();
-
-console.log(questions.length);
-
-var questionCounter = 0;
-
 //Start button sets off timer
-
+// Allots 15 seconds per question for total time remaining
 var timeLeft = questions.length * 15;
-
-
 startButton.addEventListener("click", function() {
     landingPageContent.setAttribute("style", "display: none;");
     var timerId = setInterval(countdown, 1000);
@@ -55,13 +65,11 @@ startButton.addEventListener("click", function() {
             }
         }
     }
-    
     questionFunction();
-    console.log(questionCounter);
 });
 
 
-//New code
+// Creating and setting attributes for all variables that will be appended to the questions div
 
 var questionHead = document.createElement("h2");
 questionHead.setAttribute("id", "whiteBackground");
@@ -77,26 +85,17 @@ var toHome = document.createElement("button");
 toHome.setAttribute("class", "btn");
 toHome.setAttribute("style", "display: block; margin: auto;")
 
-
-
-var rightOrWrong = document.createElement("p");
-rightOrWrong.setAttribute("style", "color: #575757; font-style: italic; padding-top: 15px; background: white;")
-
-function pTagDelay() {
-    setTimeout(function () {
-        rightOrWrong.innerHTML="";
-    }, 1000);
-}
-
+// When quiz begins, questionFunction runs.
 function questionFunction() {
 
     questionsDiv.setAttribute("style", "display: block;");
 
+    // Appends the questions and answer choices to the div. Once the questions are finished, it runs the "allDone" function.
     if (questionCounter === questions.length) {
         console.log("All done!");
         allDone();
     } else {
-        questionHead.innerHTML=questions[questionCounter].title;
+        questionHead.innerHTML="Question " + (questionCounter+1) + ": " + questions[questionCounter].title;
         questionsDiv.appendChild(questionHead);
         ans1.innerHTML=questions[questionCounter].choices[0];
         questionsDiv.appendChild(ans1);
@@ -110,12 +109,17 @@ function questionFunction() {
         toHome.setAttribute("style", "color: white; margin-top: 50px; background: #575757; margin-bottom: 200px;")
         homeButton.appendChild(toHome);       
     }
-
+    // Button to return to home page at any point.
     toHome.addEventListener("click", function() {
         window.location.reload();
     })
 }
 
+// P tag variable that displays whether users answer is correct or inccrrect
+var rightOrWrong = document.createElement("p");
+rightOrWrong.setAttribute("style", "color: #575757; font-style: italic; padding-top: 15px; background: white;")
+
+// Adds event listener to all answer choices in the div.
 questionsDiv.addEventListener("click", function(event) {
     if (event.target.innerHTML === questions[questionCounter].answer) {
         correctSound.play();
@@ -125,7 +129,6 @@ questionsDiv.addEventListener("click", function(event) {
         rightOrWrong.innerHTML="Correct!";
         questionsDiv.appendChild(rightOrWrong);
         pTagDelay();
-        console.log(questionCounter);
     } 
     else {
         wrongSound.play();
@@ -134,7 +137,6 @@ questionsDiv.addEventListener("click", function(event) {
         rightOrWrong.innerHTML="Incorrect! Try again.";
         questionsDiv.appendChild(rightOrWrong);
         pTagDelay();
-        console.log(questionCounter);
         timeLeft = timeLeft - 10;
     }
 
@@ -144,52 +146,14 @@ questionsDiv.addEventListener("click", function(event) {
     }
 })
 
-function storeScores() {
-    localStorage.setItem("highscores", JSON.stringify(scores));
+// function that displays "correct" or "incorrect" for 1 second
+function pTagDelay() {
+    setTimeout(function () {
+        rightOrWrong.innerHTML="";
+    }, 1000);
 }
 
-function renderScores() {
-    highscoreDiv.setAttribute("style", "display: none;");
-    toHome.setAttribute("style", "display: none;");
-    initialsDiv.setAttribute("style", "display: none;");
-    questionsDiv.setAttribute("style", "display: none;");
-    landingPageContent.setAttribute("style", "display: none;");
-    highscoreDiv.setAttribute("style", "display: inline;");
-    timeLeft = 0;
-
-    for (var i=0; i < scores.length; i++) {
-        console.log(scores[i]);
-        var scoreDiv = document.createElement("div");
-        scoreDiv.setAttribute("style", "background-color: white; border: 3px solid #CB5858; width: 100px; margin: 20px auto; border-radius: 25px; font-size: 22px;");
-        highscoreDiv.appendChild(scoreDiv);
-        var scoreDisplay = document.createElement("p");
-        scoreDisplay.innerHTML = scores[i];
-        scoreDisplay.setAttribute("style", "color: #CB5858;")
-        scoreDiv.appendChild(scoreDisplay);
-    }
-
-    var gobackButton = document.createElement("button");
-    gobackButton.setAttribute("id", "scorePageButtons");
-    gobackButton.innerHTML = "Back To Home";
-    highscoreDiv.appendChild(gobackButton);
-
-    var clearButton = document.createElement("button");
-    clearButton.setAttribute("id", "scorePageButtons");
-    clearButton.innerHTML = "Clear Highscores";
-    highscoreDiv.appendChild(clearButton);
-
-    gobackButton.addEventListener("click", function() {
-        window.location.reload();
-    });
-
-    clearButton.addEventListener("click", function() {
-        window.localStorage.clear();
-        scores = [];
-        highscoreDiv.innerHTML= "";
-        renderScores();
-    })
-}
-
+// function displays final scores and displays initials div where user inputs initials
 function allDone() {
     toHome.setAttribute("style", "display: none;");
     questionsDiv.setAttribute("style", "display: none;");
@@ -197,7 +161,8 @@ function allDone() {
     var finalScoreLine = initialsDiv.querySelector("#finalScore");
     finalScoreLine.innerHTML="Your final score is " + timeLeft + ".";
 
-    submitButton.addEventListener("click", function() {
+    // Function for submit button event listener
+    function submitButtonFunc() {
         event.preventDefault();
 
         var inputText = initialsInput.value.trim();
@@ -209,32 +174,70 @@ function allDone() {
         scores.push(inputText + "-" + timeLeft);
         storeScores();
         renderScores();
-    })
-
-    document.addEventListener("keyup", function(e) {
-        if (e.keyCode === 13) {
-            event.preventDefault();
-
-            var inputText = initialsInput.value.trim();
-            
-            if (inputText === "") {
-                return;
-            }
-    
-            scores.push(inputText + "-" + timeLeft);
-            storeScores();
-            renderScores();
-        }
-    })
-
-}
-
-function init() {
-
-    var storedScores = JSON.parse(localStorage.getItem("highscores"));
-    
-    if (storedScores !== null) {
-        scores = storedScores;
     }
 
-  }
+    // When  user "submits" score, it pushes initials and score into "scores" array
+    submitButton.addEventListener("click", submitButtonFunc);
+
+    //  Another event listener for enter key, not click.
+    initialsDiv.addEventListener("keyup", function(e) {
+        if (e.keyCode === 13) {
+            submitButtonFunc();
+        }
+    })
+}
+
+// stores highscores in "scores" array in local storage under "highscores"
+function storeScores() {
+    localStorage.setItem("highscores", JSON.stringify(scores));
+}
+
+// Creates and displays high score page
+function renderScores() {
+    highscoreDiv.setAttribute("style", "display: none;");
+    toHome.setAttribute("style", "display: none;");
+    initialsDiv.setAttribute("style", "display: none;");
+    questionsDiv.setAttribute("style", "display: none;");
+    landingPageContent.setAttribute("style", "display: none;");
+    highscoreDiv.setAttribute("style", "display: inline;");
+    timeLeft = 0;
+    var scoreHeader = document.createElement("h2");
+    scoreHeader.innerHTML = "High Scores";
+    highscoreDiv.appendChild(scoreHeader);
+
+    for (var i=0; i < scores.length; i++) {
+        var scoreDiv = document.createElement("div");
+        scoreDiv.setAttribute("style", "background-color: white; border: 3px solid #CB5858; width: 100px; margin: 20px auto; border-radius: 25px; font-size: 22px;");
+        highscoreDiv.appendChild(scoreDiv);
+        var scoreDisplay = document.createElement("p");
+        scoreDisplay.innerHTML = scores[i];
+        scoreDisplay.setAttribute("style", "color: #CB5858;")
+        scoreDiv.appendChild(scoreDisplay);
+    }
+
+    // creates "Go Back Home" button
+    var gobackButton = document.createElement("button");
+    gobackButton.setAttribute("id", "scorePageButtons");
+    gobackButton.innerHTML = "Back To Home";
+    highscoreDiv.appendChild(gobackButton);
+
+    // creates "Clear Highscores" button
+    var clearButton = document.createElement("button");
+    clearButton.setAttribute("id", "scorePageButtons");
+    clearButton.innerHTML = "Clear Highscores";
+    highscoreDiv.appendChild(clearButton);
+
+    // adds event listener for "Go Back Home" button
+    gobackButton.addEventListener("click", function() {
+        window.location.reload();
+    });
+
+    // adds event listener for "Clear Highscores" button
+    clearButton.addEventListener("click", function() {
+        window.localStorage.clear();
+        scores = [];
+        highscoreDiv.innerHTML= "";
+        renderScores();
+    })
+}
+

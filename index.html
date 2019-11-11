@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html style="background-image: url('assets/notebook.png');">
     <head>
         <title>Javascript Coding Quiz</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="assets/style.css">
     </head>
+    <!-- Audio links -->
     <audio id="correctAudio" type="audio/wav"><source src="assets/411088__inspectorj__bell-candle-damper-a-h4n.wav"></audio>
     <audio id="wrongAudio" type="audio/mp3"><source src="assets/483598__raclure__wrong.mp3"></audio>
-    <body>
+    <!-- Body with background image -->
+    <body style="background-image: url('assets/notebook.png');">
         <div class=top-section>
             <button class="btn scoreButton">View Highscores</button>
             <p id="timer">Time: 0</p>
@@ -30,49 +32,19 @@
         <div class="home"></div>
         <!-- This will display all high scores -->
         <div id=highScoreDiv>
-            <h2>High Scores</h2>
+            <!-- <h2>High Scores</h2> -->
         </div>
-        <section class="quizzes">
-            <div class="row">
-                <!-- <div class="col-md-1"></div>
-                <div class="col-md-5"> -->
-                    <div class="landingPage" id="landingPage">
-                        <h1 id="whiteBackground">Javascript Quiz</h1>
-                        <p id="whiteBackground">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
-                        <button type="button" class="btn" id="start">Start Quiz</button>
-                    </div>
-                <!-- </div>
-                <div class="col-md-5"> -->
-                    <div class="landingPage" id="landingPage">
-                            <h1 id="whiteBackground">HTML Quiz</h1>
-                            <p id="whiteBackground">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
-                            <button type="button" class="btn" id="start">Start Quiz</button>
-                    </div>
-                <!-- </div>
-                <div class="col-md-1"></div>
-            </div> -->
-            <!-- <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-5"> -->
-                        <div class="landingPage" id="landingPage">
-                            <h1 id="whiteBackground">CSS Quiz</h1>
-                            <p id="whiteBackground">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
-                            <button type="button" class="btn" id="start">Start Quiz</button>
-                        </div>
-                    <!-- </div>
-                    <div class="col-md-5"> -->
-                        <div class="landingPage" id="landingPage">
-                                <h1 id="whiteBackground">Bootstrap Quiz</h1>
-                                <p id="whiteBackground">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
-                                <button type="button" class="btn" id="start">Start Quiz</button>
-                        </div>
-                    <!-- </div>
-                    <div class="col-md-1"></div>
-            </div> -->
-        </section>
+
+        <!-- Landing Page Content -->
+        <div class="landingPage" id="landingPage">
+                <h1 id="whiteBackground">JavaScript Quiz</h1>
+                <p id="whiteBackground">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+                <button type="button" class="btn" id="start">Start Quiz</button>
+            </div>
+        <!-- Links to jquery/Javascript -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-        <script src="jsQuestions.js"></script>
-        <script type="text/javascript" src="script.js"></script>
+        <script src="assets/jsQuestions.js"></script>
+        <script type="text/javascript" src="assets/script.js"></script>
     </body>
 </html>
