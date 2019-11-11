@@ -207,11 +207,11 @@ function renderScores() {
 
     for (var i=0; i < scores.length; i++) {
         var scoreDiv = document.createElement("div");
-        scoreDiv.setAttribute("style", "background-color: white; border: 3px solid #CB5858; width: 100px; margin: 20px auto; border-radius: 25px; font-size: 22px;");
+        scoreDiv.setAttribute("style", "background: none; border: 4px solid #CB5858; width: 200px; padding: 7px 7px 0px 7px; margin: 20px auto; border-radius: 25px; font-size: 22px;");
         highscoreDiv.appendChild(scoreDiv);
         var scoreDisplay = document.createElement("p");
         scoreDisplay.innerHTML = scores[i];
-        scoreDisplay.setAttribute("style", "color: #CB5858;")
+        scoreDisplay.setAttribute("style", "color: #CB5858; font-weight: bold;")
         scoreDiv.appendChild(scoreDisplay);
     }
 
