@@ -60,7 +60,7 @@ startButton.addEventListener("click", function() {
             timerEl.innerHTML = timeLeft + ' seconds remaining';
             timeLeft--;
 
-            if (questionCounter !== questions.length) {
+            if (questionCounter === 10) {
                 clearTimeout(timerId);
             }
         }
