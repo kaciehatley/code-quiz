@@ -1,7 +1,7 @@
 # Code-Quiz
 
 ## About The Project
-This coding quiz is fourth project I have built as homework for the UNCC Coding Bootcamp. The assignment tested my knowledge on HTML, CSS, JavaScript and APIs. This project contains one HTML file and an assets folder including one CSS file and two JavaScript files. 
+This project allows the user to test their JavaScript knowledge. User can take quiz multiple times and compare high scores.
 
 ## Obstacles
 An immense amount of Googling and trial/error went into this project. Initially, I had the event listener for all answer choices inside the questionFunction(). I still do not understand why, but this caused my questionCounter to increase exponentially with each event. Separating the two solved the issue, but I still do not understand why this happened.
